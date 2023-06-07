@@ -11,24 +11,34 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-  githubId Int @unique
-  name String 
-  login String
+  id        String @id @default(uuid())
+  githubId  Int    @unique
+  name      String
+  login     String
   avatarUrl String
 
   memories Memory[]
 }
 
 model Memory {
-  id String @id @default(uuid())
+  id     String @id @default(uuid())
   userId String
-  
-  coverUrl String
-  content String
-  isPublic Boolean @default(false)
+
+  coverUrl  String
+  content   String
+  isPublic  Boolean  @default(false)
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
-
 }
+
+// model Comment {
+//   id        String   @id @default(uuid())
+//   userId    String
+//   memoryId  String
+//   content   String
+//   createdAt DateTime @default(now())
+
+//   user   User   @relation(fields: [userId], references: [id])
+//   memory Memory @relation(fields: [memoryId], references: [id])
+// }
