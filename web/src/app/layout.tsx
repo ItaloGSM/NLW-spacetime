@@ -9,22 +9,21 @@ import { Profile } from '@/components/Profile'
 import { SignIn } from '@/components/SignIn'
 import { Copyright } from '@/components/Copyright'
 import { cookies } from 'next/headers'
+
 const roboto = Roboto({ subsets: ['latin'], variable: '--font-roboto' })
 const baiJamjuree = BaiJamjuree({
   subsets: ['latin'],
   weight: '700',
   variable: '--font-bai-jamjuree',
 })
-export const metadata = {
-  title: 'NLW Spacetime',
-  description:
-    'Uma cápsula do tempo construída com React, Next.js, TailwindCSS e Typescript.',
-}
+
 interface RootLayoutProps {
   children: ReactNode;
 }
-export default function RootLayout({ children }: RootLayoutProps) {
+
+export default function RootLayout({ children }: Readonly<RootLayoutProps>): JSX.Element {
   const isAuthenticated = cookies().has('token')
+  
   return (
     <html lang="en">
       <body
