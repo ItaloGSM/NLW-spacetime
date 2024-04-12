@@ -5,7 +5,7 @@ import { cookies } from 'next/headers'
 import Link from 'next/link'
 
 interface NewMemoryProps {
-  params: { id: string };
+  params: Readonly<{ id: string }>;
 }
 
 interface IMemory {

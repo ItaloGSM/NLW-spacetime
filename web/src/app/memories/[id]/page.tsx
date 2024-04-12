@@ -7,11 +7,10 @@ import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
 import { EmptyMemories } from '@/components/EmptyMemories'
 import { ButtonDelete } from '@/components/ButtonDelete'
-
 dayjs.locale(ptBR)
 
 interface MemoryProps {
-  params: { id: string };
+  params: Readonly<{ id: string }>;
 }
 
 interface IMemory {
