@@ -60,8 +60,7 @@ export function NewMemoryForm() {
             name="isPublic"
             id="isPublic"
             value="true"
-            className="h-4 w-4 rounded border-gray-400 bg-gray-700 text-purple-500"
-          />
+            className="h-4 w-4 rounded border-gray-400 bg-gray-700 text-purple-500"/>
           Tornar memória pública
         </label>
       </div>

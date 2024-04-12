@@ -1,20 +1,19 @@
 'use client'
-
 import { api } from '@/lib/api'
 
 interface Props {
-  memoryId: string
-  token: string | undefined
+  memoryId: string;
+  token: string | undefined;
 }
 
-export function ButtonDelete({ memoryId, token }: Props) {
+export function ButtonDelete({ memoryId, token }: Readonly<Props>): JSX.Element {
   const handleDelete = async () => {
     await api.delete(`/memories/${memoryId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
-  }
+    });
+  };
 
   return (
     <a
@@ -24,5 +23,5 @@ export function ButtonDelete({ memoryId, token }: Props) {
     >
       EXCLUIR
     </a>
-  )
+  );
 }

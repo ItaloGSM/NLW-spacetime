@@ -6,11 +6,11 @@ import Cookie from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import { MediaPicker2 } from '@/components/MediaPicker2.0'
 
-interface IUpdateMediaForm {
-  IdIn: string
-  mediaIn: string
-  contentIn: string
-  isPublicIn: boolean
+interface IUpdateMemoryFormProps {
+  IdIn: string;
+  mediaIn: string;
+  contentIn: string;
+  isPublicIn: boolean;
 }
 
 export function UpdateMemoryForm({
@@ -18,25 +18,26 @@ export function UpdateMemoryForm({
   isPublicIn,
   mediaIn,
   IdIn,
-}: IUpdateMediaForm) {
-  const [isPublicMemoryDefault, setIsPublicMemoryDefault] = useState(isPublicIn)
-  const [contentDefault, setContentDefault] = useState(contentIn)
-  const router = useRouter()
+}: Readonly<IUpdateMemoryFormProps>): JSX.Element {
+  const [isPublicMemoryDefault, setIsPublicMemoryDefault] = useState(isPublicIn);
+  const [contentDefault, setContentDefault] = useState(contentIn);
+  const router = useRouter();
 
   async function handleUpdateMemory(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const fileToUpload = formData.get('coverUrl')
-    let coverUrl = ''
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const fileToUpload = formData.get('coverUrl');
+    let coverUrl = '';
 
     if (fileToUpload) {
-      const uploadFormData = new FormData()
-      uploadFormData.set('file', fileToUpload)
-      const uploadResponse = await api.post('/upload', uploadFormData)
-      coverUrl = uploadResponse.data.fileUrl
+      const uploadFormData = new FormData();
+      uploadFormData.set('file', fileToUpload);
+
+      const uploadResponse = await api.post('/upload', uploadFormData);
+      coverUrl = uploadResponse.data.fileUrl;
     }
 
-    const token = Cookie.get('token')
+    const token = Cookie.get('token');
 
     await api.put(
       `/memories/${IdIn}`,
@@ -49,14 +50,15 @@ export function UpdateMemoryForm({
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      },
-    )
-    router.push('/')
+      }
+    );
+
+    router.push('/');
   }
 
   const handleContentChange = (event: FormEvent<HTMLTextAreaElement>) => {
-    setContentDefault(event.currentTarget.value)
-  }
+    setContentDefault(event.currentTarget.value);
+  };
 
   return (
     <form onSubmit={handleUpdateMemory} className="flex flex-1 flex-col gap-2">
@@ -79,8 +81,7 @@ export function UpdateMemoryForm({
             checked={isPublicMemoryDefault}
             onChange={() => setIsPublicMemoryDefault(!isPublicMemoryDefault)}
             value={isPublicMemoryDefault ? 'true' : 'false'}
-            className="h-4 w-4 rounded border-gray-400 bg-gray-700 text-purple-500"
-          />
+            className="h-4 w-4 rounded border-gray-400 bg-gray-700 text-purple-500"/>
           Tornar memória pública
         </label>
       </div>
@@ -99,5 +100,5 @@ export function UpdateMemoryForm({
         Salvar
       </button>
     </form>
-  )
+  );
 }
