@@ -5,7 +5,7 @@ import { cookies } from 'next/headers'
 import Link from 'next/link'
 
 interface NewMemoryProps {
-  params: Readonly<{ id: string }>;
+  params: { id: string };
 }
 
 interface IMemory {
@@ -16,7 +16,7 @@ interface IMemory {
   isPublic: boolean;
 }
 
-export default async function NewMemory({ params }: NewMemoryProps): Promise<JSX.Element> {
+export default async function NewMemory({ params }: Readonly<NewMemoryProps>): Promise<JSX.Element> {
   const { id } = params;
   const token = cookies().get('token')?.value;
   const response = await api.get(`/memories/${id}`, {
