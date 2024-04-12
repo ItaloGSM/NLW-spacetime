@@ -10,7 +10,7 @@ import { ButtonDelete } from '@/components/ButtonDelete'
 dayjs.locale(ptBR)
 
 interface MemoryProps {
-  params: Readonly<{ id: string }>;
+  params: { id: string };
 }
 
 interface IMemory {
@@ -20,7 +20,7 @@ interface IMemory {
   createdAt: string;
 }
 
-export default async function Memory({ params }: MemoryProps): Promise<JSX.Element> {
+export default async function Memory({ params }: Readonly<MemoryProps>): Promise<JSX.Element> {
   const { id } = params;
   const isAuthenticated = cookies().has('token');
   
