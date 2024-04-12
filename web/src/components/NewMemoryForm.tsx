@@ -55,13 +55,14 @@ export function NewMemoryForm() {
           htmlFor="isPublic"
           className="flex items-center gap-1.5 text-sm text-gray-200 hover:text-gray-100"
         >
-          <input
-            type="checkbox"
-            name="isPublic"
-            id="isPublic"
-            value="true"
-            className="h-4 w-4 rounded border-gray-400 bg-gray-700 text-purple-500"/>
-          Tornar memória pública
+        <input
+          type="checkbox"
+          name="isPublic"
+          id="isPublic"
+          value="true"
+          className="h-4 w-4 rounded border-gray-400 bg-gray-700 text-purple-500"
+        />
+        Tornar memória pública
         </label>
       </div>
       <MediaPicker />
