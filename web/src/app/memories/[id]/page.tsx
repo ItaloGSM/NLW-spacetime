@@ -7,32 +7,37 @@ import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
 import { EmptyMemories } from '@/components/EmptyMemories'
 import { ButtonDelete } from '@/components/ButtonDelete'
-
 dayjs.locale(ptBR)
-interface IMemory {
-  id: string
-  coverUrl: string
-  content: string
-  createdAt: string
+
+interface MemoryProps {
+  params: { id: string };
 }
-export default async function Memory({ params }: { params: { id: string } }) {
-  const { id } = params
-  const isAuthenticated = cookies().has('token')
 
+interface IMemory {
+  id: string;
+  coverUrl: string;
+  content: string;
+  createdAt: string;
+}
+
+export default async function Memory({ params }: Readonly<MemoryProps>): Promise<JSX.Element> {
+  const { id } = params;
+  const isAuthenticated = cookies().has('token');
+  
   if (!isAuthenticated) {
-    return <EmptyMemories />
+    return <EmptyMemories />;
   }
-
-  const token = cookies().get('token')?.value
-
+  
+  const token = cookies().get('token')?.value;
+  
   const response = await api.get(`/memories/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  })
-
-  const memory: IMemory = response.data
-
+  });
+  
+  const memory: IMemory = response.data;
+  
   return memory ? (
     <div className="flex flex-1 flex-col justify-between p-6">
       <div className="flex flex-col gap-4">
@@ -74,5 +79,5 @@ export default async function Memory({ params }: { params: { id: string } }) {
     </div>
   ) : (
     <EmptyMemories />
-  )
+  );
 }

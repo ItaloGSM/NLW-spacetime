@@ -1,22 +1,22 @@
 'use client'
 import { ChangeEvent, useState } from 'react'
 
-interface IMediaPicker {
-  media: string
+interface IMediaPickerProps {
+  media: string;
 }
 
-export function MediaPicker2({ media }: IMediaPicker) {
-  const [preview, setPreview] = useState<string | null>(media)
+export function MediaPicker2({ media }: Readonly<IMediaPickerProps>): JSX.Element {
+  const [preview, setPreview] = useState<string | null>(media);
+
   function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
-    const { files } = event.target
-
+    const { files } = event.target;
     if (!files) {
-      return
+      return;
     }
-
-    const previewURL = URL.createObjectURL(files[0])
-    setPreview(previewURL)
+    const previewURL = URL.createObjectURL(files[0]);
+    setPreview(previewURL);
   }
+
   return (
     <>
       <input
@@ -27,7 +27,6 @@ export function MediaPicker2({ media }: IMediaPicker) {
         accept="image/*"
         className="invisible h-0 w-0"
       />
-
       {preview && (
         // eslint-disable-next-line
         <img
@@ -37,5 +36,5 @@ export function MediaPicker2({ media }: IMediaPicker) {
         />
       )}
     </>
-  )
+  );
 }

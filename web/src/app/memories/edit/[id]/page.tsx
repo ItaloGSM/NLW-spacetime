@@ -4,31 +4,28 @@ import { ChevronLeft } from 'lucide-react'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
 
-interface IMemory {
-  id: string
-  userId: string
-  coverUrl: string
-  content: string
-  isPublic: boolean
+interface NewMemoryProps {
+  params: { id: string };
 }
 
-export default async function NewMemory({
-  params,
-}: {
-  params: { id: string }
-}) {
-  const { id } = params
+interface IMemory {
+  id: string;
+  userId: string;
+  coverUrl: string;
+  content: string;
+  isPublic: boolean;
+}
 
-  const token = cookies().get('token')?.value
-
+export default async function NewMemory({ params }: Readonly<NewMemoryProps>): Promise<JSX.Element> {
+  const { id } = params;
+  const token = cookies().get('token')?.value;
   const response = await api.get(`/memories/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  })
-
-  const memory: IMemory = response.data
-
+  });
+  const memory: IMemory = response.data;
+  
   return (
     <div className="flex flex-1 flex-col gap-4 p-16">
       <Link
@@ -45,5 +42,5 @@ export default async function NewMemory({
         isPublicIn={memory.isPublic}
       />
     </div>
-  )
+  );
 }
